@@ -2,8 +2,8 @@ const express = require("express");
 require("dotenv").config();
 
 const {
-    todoService, todoServiceById
-} = require("./services/todoService");
+    bored 
+} = require("./services/bored");
 
 const app = express();
 
@@ -13,32 +13,18 @@ app.get("/", (req, res, next) => {
 });
 
 // get external service
-// http://localhost:3000/todo
-app.get("/todo", (req, res, next) => {
-    todoService()
+
+app.get("/bored", (req, res, next) => {
+    bored()
     .then(result => res.status(200).json(result))
     .catch(err => res.status(501).json({
         error: {
             message: err.message, 
-            status: err.status
+            status: err.status,
+            method: req.method
         }
     }))
 });
-
-//get external service by ID
-//http://localhost:3000/todo/56
-app.get("/todo/:todoId", (req, res, next) => {
-    const todoId = req.params.todoId;
-    todoServiceById(todoId)
-    .then(result => res.status(200).json(result))
-    .catch(err => res.status(err.status || 501).json({error: {
-        message: err.message, 
-        status: err.status, 
-        method: req.method
-        }
-    }))
-
-})
 
 app.use((req, res, next) => {
     const error = new Error("NOT FOUND!");
