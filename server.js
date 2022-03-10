@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv").config();
+
 
 const {
     bored 
@@ -7,7 +7,7 @@ const {
 
 const app = express();
 
-// for localhost:3000/
+// for localhost:3000/bored
 app.get("/", (req, res, next) => {
     res.status(200).send("Service is Working!!")
 });
@@ -25,6 +25,7 @@ app.get("/bored", (req, res, next) => {
         }
     }))
 });
+
 
 app.use((req, res, next) => {
     const error = new Error("NOT FOUND!");
